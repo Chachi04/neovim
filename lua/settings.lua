@@ -11,29 +11,33 @@ utils.opt("o", "exrc", true)
 utils.opt("o", "secure", true)
 -- utils.opt("o", "shell", "/usr/bin/zsh")
 
+-- UI
 -- utils.opt("o", "guicursor", "")
 utils.opt("w", "number", true)
 utils.opt("w", "relativenumber", true)
 utils.opt("b", "modeline", false)
 utils.opt("w", "signcolumn", "auto")
 utils.opt("o", "showmode", false)
--- utils.opt("o", "termguicolors", true)
+utils.opt("o", "termguicolors", true)
 
+-- Searching
 utils.opt("o", "hlsearch", false)
 utils.opt("o", "ignorecase", true)
 utils.opt("o", "smartcase", true)
 utils.opt("o", "incsearch", true)
 
+-- Ignores
 utils.opt("o", "wildmenu", true)
 utils.opt("o", "wildignorecase", true)
 utils.opt("o", "pumblend", 30)
 vim.o.wildignore = vim.o.wildignore .. "*.o,*.obj,*.~,*.class,"
-vim.o.wildignore = vim.o.wildignore .. "*.git,"
 vim.o.wildignore = vim.o.wildignore .. "*.swp,*.tmp,"
 vim.o.wildignore = vim.o.wildignore .. "*.mp3,*.mp4,"
 vim.o.wildignore = vim.o.wildignore .. "*.bmp,*.gif,*ico,*.jpg,*.png,"
 vim.o.wildignore = vim.o.wildignore .. "*.pdf,*.doc,*.docs,*.ppt,*.pptx,"
 vim.o.wildignore = vim.o.wildignore .. "*.rar,*.zip,*.tar,*.tar.gz,*.tar.xz,"
+vim.o.wildignore = vim.o.wildignore .. "**/node_moduels/*,"
+vim.o.wildignore = vim.o.wildignore .. "**/.git/*,"
 
 utils.opt("w", "wrap", false)
 
@@ -52,6 +56,7 @@ if not vim.fn.isdirectory(undodir) then
     os.execute("mkdir -p " .. undodir)
 end
 
+-- Tabs
 utils.opt("b", "tabstop", indent)
 utils.opt("b", "softtabstop", indent)
 utils.opt("b", "shiftwidth", indent)
@@ -59,6 +64,7 @@ utils.opt("o", "smarttab", true)
 utils.opt("o", "shiftround", true)
 utils.opt("b", "expandtab", true)
 
+-- Indents
 utils.opt("b", "cindent", true)
 utils.opt("b", "smartindent", true)
 utils.opt("b", "autoindent", true)
@@ -66,7 +72,10 @@ utils.opt("b", "indentexpr", "")
 
 utils.opt("o", "completeopt", "menuone,noinsert,noselect")
 
-vim.cmd "let g:python3_host_prog = '/usr/bin/python'"
+cmd "let g:python3_host_prog = '/usr/bin/python'"
+
+-- Custom commands
+-- cmd "command serv"
 
 -- ¯\_(ツ)_/¯
 -- vim.g.t_8f = "<Esc>[38;2;%lu;%lu;%lum]"

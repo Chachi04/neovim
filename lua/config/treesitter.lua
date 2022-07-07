@@ -7,9 +7,9 @@ require "nvim-treesitter.configs".setup {
         --     ["foo.bar"] = "Identifier",
         -- },
     },
-    indent = {
-        enable = true
-    },
+    -- indent = {
+    --     enable = true
+    -- },
     rainbow = {
         enable = false,
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for

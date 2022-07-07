@@ -6,3 +6,10 @@ require "nvim_comment".setup {
     create_mappings = false,
     comment_empty = false
 }
+
+require "nvim-treesitter.configs".setup {
+    context_commentstring = {
+        enable = true,
+        enable_autocmd = false
+    }
+}

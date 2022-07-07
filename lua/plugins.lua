@@ -3,39 +3,48 @@ require("packer").startup(
         -- Packer can manage itself
         use "wbthomason/packer.nvim"
 
-        -- Telescope plugins
-        use {
-            "nvim-telescope/telescope.nvim",
-            requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
-        }
-        use "nvim-telescope/telescope-fzy-native.nvim"
-        use "kyazdani42/nvim-web-devicons"
-
         -- Lsp plugins
         use "neovim/nvim-lspconfig"
         use "nvim-lua/lsp_extensions.nvim"
         use "williamboman/nvim-lsp-installer"
+        use "nvim-lua/lsp-status.nvim"
+        use {"RishabhRD/nvim-lsputils", requires = {"RishabhRD/popfix"}}
+        use "tami5/lspsaga.nvim"
+
+        -- Telescope plugins
+        use {"nvim-telescope/telescope.nvim", requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}}
+        use "nvim-telescope/telescope-fzy-native.nvim"
+        use "kyazdani42/nvim-web-devicons"
 
         -- Completion plugins
-        -- To be changed
         use "hrsh7th/nvim-cmp"
+
         use "hrsh7th/cmp-nvim-lsp"
-        use "hrsh7th/cmp-buffer"
         use "hrsh7th/cmp-path"
+        -- use "tzachar/cmp-fuzzy-path"
+        use "hrsh7th/cmp-buffer"
+        -- use "tzachar/cmp-fuzzy-buffer"
         use "hrsh7th/cmp-cmdline"
         use "f3fora/cmp-spell"
         use "lukas-reineke/cmp-under-comparator"
+        use "rcarriga/cmp-dap"
 
         -- Snippets
+        -- use "hrsh7th/cmp-vsnip"
+        -- use "hrsh7th/vim-vsnip"
+        use "dcampos/nvim-snippy"
+        use "dcampos/cmp-snippy"
         use "rafamadriz/friendly-snippets"
-        use "hrsh7th/cmp-vsnip"
-        use "hrsh7th/vim-vsnip"
-        use "hrsh7th/vim-vsnip-integ"
+        -- use "hrsh7th/vim-vsnip-integ"
 
         -- Treesitter plugin
         use "nvim-treesitter/nvim-treesitter"
 
+        -- Terminal integration
+        use "akinsho/toggleterm.nvim"
+
         -- Debug plugins
+        use "mfussenegger/nvim-dap"
         -- use "puremourning/vimspector"
         use "szw/vim-maximizer"
 
@@ -47,10 +56,9 @@ require("packer").startup(
         use "tamton-aquib/staline.nvim"
 
         -- File Explorer plugin
-        use {
-            "kyazdani42/nvim-tree.lua",
-            requires = "kyazdani42/nvim-web-devicons"
-        }
+        use {"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"}
+
+        -- use {"stevearc/vim-arduino"}
 
         -- use {
         --     "nvim-orgmode/orgmode",
@@ -62,11 +70,15 @@ require("packer").startup(
         -- use {"jwalton512/vim-blade", ft = {"laravel"}}
 
         -- Surround plugin
-        use "blackCauldron7/surround.nvim"
+        -- use "blackCauldron7/surround.nvim"
+        use "tpope/vim-surround"
 
         -- Html plugins
         use "alvan/vim-closetag"
         use "AndrewRadev/tagalong.vim"
+
+        -- Jinja
+        use "lepture/vim-jinja"
 
         -- Autopair plugin
         use "steelsojka/pears.nvim"
@@ -75,7 +87,7 @@ require("packer").startup(
         use "windwp/nvim-ts-autotag"
 
         -- Tabout
-        use "abecodes/tabout.nvim"
+        -- use "abecodes/tabout.nvim"
 
         -- Rainbow parentheses
         use "p00f/nvim-ts-rainbow"
@@ -129,7 +141,7 @@ require("packer").startup(
 require("config.lspinstall")
 require("config.completion")
 require("config.treesitter")
-require("config.tabsout")
+-- require("config.tabsout")
 require("config.gitsigns")
 require("config.statusline")
 require("config.nvim-tree")
@@ -137,8 +149,12 @@ require("config.surround")
 require("config.pears")
 require("config.nvim-ts-autotag")
 require("config.comments")
-require("config.context-comments")
 require("config.colorscheme")
 require("config.smoothscroll")
 require("config.signify")
+require("config.telescope")
+require("config.lsp")
+require("config.dap-debug")
 -- require("config.dashboard")
+require("config.prettier")
+require("config.floaterm")

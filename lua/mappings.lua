@@ -2,78 +2,159 @@ local map = vim.api.nvim_set_keymap
 local opts = {noremap = true, silent = true}
 vim.g.mapleader = " "
 
-map("n", "<leader><CR>", '<cmd>Reload<CR><cmd>PackerCompile<CR><cmd>echo "Reload config"<CR>', opts)
+local mappings = {
+    {"n", "<leader><CR>", '<cmd>Reload<CR><cmd>PackerCompile<CR><cmd>echo "Reload config"<CR>'}, -- reload config
+    {"n", "J", "mzJ`z"}, -- better line joining
+    -- better undo breaks
+    {"i", "<space>", "<space><c-g>u"},
+    {"i", ",", ",<c-g>u"},
+    {"i", ".", ".<c-g>u"},
+    {"i", "!", "!<c-g>u"},
+    {"i", "?", "?<c-g>u"},
+    -- comments
+    {"n", "<leader>c", "<cmd>CommentToggle<CR>"},
+    {"n", "<C-/>", "<cmd>CommentToggle<CR>"},
+    {"v", "<leader>c", ":CommentToggle<CR>"},
+    {"v", "<C-/>", ":CommentToggle<CR>"},
+    {"i", "<C-/>", "<cmd>CommentToggle<CR>"},
+    -- nvim tree toggle
+    {"n", "<C-n>", "<cmd>NvimTreeToggle<CR>"},
+    {"n", "<leader>op", "<cmd>NvimTreeToggle<CR>"},
+    {"n", "<leader>r", "<cmd>NvimTreeRefresh<CR>"},
+    -- vertical resize
+    {"n", "<leader>+", "<cmd>vertical resize +5<CR>"},
+    {"n", "<leader>-", "<cmd>vertical resize -5<CR>"},
+    -- maximizer
+    {"n", "<leader>m", "<cmd>MaximizerToggle<CR>"},
+    -- toggle terminal
+    {"n", "`", "<cmd>exe v:count1 . 'ToggleTerm direction=float'<CR>"},
+    {"t", "`", "<C-\\><C-n><cmd>exe v:count1 . 'ToggleTerm direction=float'<CR>"},
+    -- window switching
+    {"n", "<C-j>", "<C-w><C-j>"},
+    {"n", "<C-k>", "<C-w><C-k>"},
+    {"n", "<C-h>", "<C-w><C-h>"},
+    {"n", "<C-l>", "<C-w><C-l>"},
+    {"n", "<leader>wj", "<C-w><C-j>"},
+    {"n", "<leader>wk", "<C-w><C-k>"},
+    {"n", "<leader>wh", "<C-w><C-h>"},
+    {"n", "<leader>wl", "<C-w><C-l>"},
+    {"t", "<C-j>", "<C-\\><C-n><C-w><C-j>"},
+    {"t", "<C-k>", "<C-\\><C-n><C-w><C-k>"},
+    {"t", "<C-h>", "<C-\\><C-n><C-w><C-h>"},
+    {"t", "<C-l>", "<C-\\><C-n><C-w><C-l>"},
+    -- line swapping
+    {"n", "<A-j>", "<cmd>m .+1<CR>=="},
+    {"n", "<A-k>", "<cmd>m .-2<CR>=="},
+    {"i", "<A-j>", "<Esc><cmd>m .+1<CR>==gi"},
+    {"i", "<A-k>", "<Esc><cmd>m .-2<CR>==gi"},
+    {"v", "<A-j>", ":m '>+1<CR>gv=gv"},
+    {"v", "<A-k>", ":m '<-2<CR>gv=gv"},
+    -- copy/pasting
+    {"n", "Y", "y$"},
+    {"v", "<leader>y", '"+y'},
+    {"n", "<leader>Y", '"+yg_'},
+    {"n", "<leader>y", '"+y'},
+    {"n", "<leader>p", '"+p'},
+    {"n", "<leader>P", '"+P'},
+    {"v", "<leader>p", '"+p'},
+    {"v", "<leader>P", '"+P'},
+    -- select all
+    {"n", "<C-a>", "ggVG"},
+    -- lsp saga
+    {"n", "gr", "<cmd>Lspsaga rename<CR>"},
+    {"n", "gx", "<cmd>Lspsaga code_action<CR>"},
+    {"x", "gx", ":<C-u>Lspsaga range_code_action<CR>"},
+    {"n", "K", "<cmd>Lspsaga hover_doc<CR>"},
+    {"n", "go", "<cmd>Lspsaga show_line_diagnostics<CR>"},
+    {"n", "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>"},
+    {"n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>"},
+    {"n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1, '<C-u>')<CR>"},
+    {"n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1, '<C-d>')<CR>"},
+    -- telescope
+    {"n", "<C-p>", '<cmd>lua require("config.telescope").project_files()<CR>'},
+    {"n", "<leader><leader>", '<cmd>lua require("config.telescope").project_files()<CR>'},
+    {"n", "<leader>.", '<cmd>lua require("telescope.builtin").file_browser()<CR>'},
+    {"n", "<leader>fa", '<cmd>lua require("telescope.builtin").live_grep()<CR>'},
+    {"n", "<leader>/", '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts},
+    {"n", "<leader>fb", '<cmd>lua require("telescope.builtin").buffers()<CR>'},
+    {"n", "<leader>bi", '<cmd>lua require("telescope.builtin").buffers()<CR>'},
+    {"n", "<leader>fd", '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>'},
+    {"n", "<leader>vrc", '<cmd>lua require("config.telescope").search_dotfiles()<CR>'},
+    {"n", "<leader>fp", '<cmd>lua require("config.telescope").search_dotfiles()<CR>'},
+    -- git blame
+    {"n", "<leader>gb", "<cmd>G blame --date=relative<CR>"},
+    {"n", "<leader>gbl", "<cmd>G blame_line<CR>"}
+}
+
+for _, args in pairs(mappings) do
+    map(args[1], args[2], args[3], opts)
+end
+
+-- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, {noremap = true, silent = true})
+
+-- map("n", "<leader><CR>", '<cmd>Reload<CR><cmd>PackerCompile<CR><cmd>echo "Reload config"<CR>', opts)
 -- map("n", "<leader><CR>", '<cmd>so ~/.config/nvim/init.lua<CR><cmd>echo "Sourced config"<CR>', opts)
 -- nnoremap <silent> <leader><CR> :so ~/.config/nvim/init.vim<CR>:echo "init.vim has been sourced successfully"<CR>
-
-map("n", "J", "mzJ`z", opts)
-
-map("i", "<space>", "<space><c-g>u", opts)
-map("i", ",", ",<c-g>u", opts)
-map("i", ".", ".<c-g>u", opts)
-map("i", "!", "!<c-g>u", opts)
-map("i", "?", "?<c-g>u", opts)
-
-map("n", "<leader>c", "<cmd>CommentToggle<CR>", opts)
-map("n", "<C-_>", "<cmd>CommentToggle<CR>", opts)
-map("v", "<leader>c", ":CommentToggle<CR>", opts)
-map("v", "<C-_>", ":CommentToggle<CR>", opts)
-map("i", "<C-_>", "<cmd>CommentToggle<CR>", opts)
-
-map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", opts)
-map("n", "<leader>op", "<cmd>NvimTreeToggle<CR>", opts)
-map("n", "<leader>r", "<cmd>NvimTreeRefresh<CR>", opts)
-
-map("n", "<leader>+", "<cmd>vertical resize +5<CR>", opts)
-map("n", "<leader>-", "<cmd>vertical resize -5<CR>", opts)
-
-map("n", "<leader>m", "<cmd>MaximizerToggle<CR>", opts)
-
-map("n", "<C-j>", "<C-w><C-j>", opts)
-map("n", "<C-k>", "<C-w><C-k>", opts)
-map("n", "<C-h>", "<C-w><C-h>", opts)
-map("n", "<C-l>", "<C-w><C-l>", opts)
-map("n", "<leader>wj", "<C-w><C-j>", opts)
-map("n", "<leader>wk", "<C-w><C-k>", opts)
-map("n", "<leader>wh", "<C-w><C-h>", opts)
-map("n", "<leader>wl", "<C-w><C-l>", opts)
-map("t", "<C-j>", "<C-\\><C-n><C-w><C-j>", opts)
-map("t", "<C-k>", "<C-\\><C-n><C-w><C-k>", opts)
-map("t", "<C-h>", "<C-\\><C-n><C-w><C-h>", opts)
-map("t", "<C-l>", "<C-\\><C-n><C-w><C-l>", opts)
-
-map("n", "<A-j>", "<cmd>m .+1<CR>==", opts)
-map("n", "<A-k>", "<cmd>m .-2<CR>==", opts)
-map("i", "<A-j>", "<Esc><cmd>m .+1<CR>==gi", opts)
-map("i", "<A-k>", "<Esc><cmd>m .-2<CR>==gi", opts)
-map("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
-map("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
-
-map("n", "Y", "y$", opts)
-map("v", "<leader>y", '"+y', opts)
-map("n", "<leader>Y", '"+yg_', opts)
-map("n", "<leader>y", '"+y', opts)
-
-map("n", "<leader>p", '"+p', opts)
-map("n", "<leader>P", '"+P', opts)
-map("v", "<leader>p", '"+p', opts)
-map("v", "<leader>P", '"+P', opts) -- "
-
-map("n", "<C-a>", "ggVG", opts)
 
 if vim.bo.filetype == "cpp" then
     map("n", "<F5>", "<cmd>Run<CR>", opts)
 end
 
-map("n", "<C-p>", '<cmd>lua require("config.telescope").project_files()<CR>', opts)
-map("n", "<leader><leader>", '<cmd>lua require("config.telescope").project_files()<CR>', opts)
-map("n", "<leader>.", '<cmd>lua require("telescope.builtin").file_browser()<CR>', opts)
-map("n", "<leader>fa", '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts)
-map("n", "<leader>/", '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts)
-map("n", "<leader>fb", '<cmd>lua require("telescope.builtin").buffers()<CR>', opts)
-map("n", "<leader>bi", '<cmd>lua require("telescope.builtin").buffers()<CR>', opts)
-map("n", "<leader>fd", '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', opts)
-map("n", "<leader>vrc", '<cmd>lua require("config.telescope").search_dotfiles()<CR>', opts)
-map("n", "<leader>fp", '<cmd>lua require("config.telescope").search_dotfiles()<CR>', opts)
+-- remind to go to english
+vim.cmd "noremap а a"
+vim.cmd "noremap б b"
+vim.cmd "noremap ц c"
+vim.cmd "noremap д d"
+vim.cmd "noremap е e"
+vim.cmd "noremap ф f"
+vim.cmd "noremap г g"
+vim.cmd "noremap х h"
+vim.cmd "noremap и i"
+vim.cmd "noremap й j"
+vim.cmd "noremap к k"
+vim.cmd "noremap л l"
+vim.cmd "noremap м m"
+vim.cmd "noremap н n"
+vim.cmd "noremap о o"
+vim.cmd "noremap п p"
+vim.cmd "noremap я q"
+vim.cmd "noremap р r"
+vim.cmd "noremap с s"
+vim.cmd "noremap т t"
+vim.cmd "noremap у u"
+vim.cmd "noremap ж v"
+vim.cmd "noremap в w"
+vim.cmd "noremap ь x"
+vim.cmd "noremap ъ y"
+vim.cmd "noremap з z"
 
-map("n", "<leader>gb", "<cmd>G blame --date=relative<CR>", opts)
+-- map("v", "а", "a", opts)
+-- map("v", "б", "b", opts)
+-- map("v", "ц", "c", opts)
+-- map("v", "д", "d", opts)
+-- map("v", "е", "e", opts)
+-- map("v", "ф", "f", opts)
+-- map("v", "г", "g", opts)
+-- map("v", "х", "h", opts)
+-- map("v", "и", "i", opts)
+-- map("v", "й", "j", opts)
+-- map("v", "к", "k", opts)
+-- map("v", "л", "l", opts)
+-- map("v", "м", "m", opts)
+-- map("v", "н", "n", opts)
+-- map("v", "о", "o", opts)
+-- map("v", "п", "p", opts)
+-- map("v", "я", "q", opts)
+-- map("v", "р", "r", opts)
+-- map("v", "с", "s", opts)
+-- map("v", "т", "t", opts)
+-- map("v", "у", "u", opts)
+-- map("v", "ж", "v", opts)
+-- map("v", "в", "w", opts)
+-- map("v", "ь", "x", opts)
+-- map("v", "ъ", "y", opts)
+-- map("v", "з", "z", opts)
+-- map("n", "", "<cmd>echo 'Switch to English'<CR>", opts)
+-- map("n", "", "<cmd>echo 'Switch to English'<CR>", opts)
+-- map("n", "", "<cmd>echo 'Switch to English'<CR>", opts)
+-- map("n", "", "<cmd>echo 'Switch to English'<CR>", opts)

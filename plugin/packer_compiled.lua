@@ -79,6 +79,11 @@ _G.packer_plugins = {
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
     url = "https://github.com/hrsh7th/cmp-cmdline"
   },
+  ["cmp-dap"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/cmp-dap",
+    url = "https://github.com/rcarriga/cmp-dap"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
@@ -88,6 +93,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
+  },
+  ["cmp-snippy"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/cmp-snippy",
+    url = "https://github.com/dcampos/cmp-snippy"
   },
   ["cmp-spell"] = {
     loaded = true,
@@ -99,11 +109,6 @@ _G.packer_plugins = {
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/cmp-under-comparator",
     url = "https://github.com/lukas-reineke/cmp-under-comparator"
   },
-  ["cmp-vsnip"] = {
-    loaded = true,
-    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
-    url = "https://github.com/hrsh7th/cmp-vsnip"
-  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -114,10 +119,20 @@ _G.packer_plugins = {
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
+  ["lsp-status.nvim"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/lsp-status.nvim",
+    url = "https://github.com/nvim-lua/lsp-status.nvim"
+  },
   ["lsp_extensions.nvim"] = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim",
     url = "https://github.com/nvim-lua/lsp_extensions.nvim"
+  },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
+    url = "https://github.com/tami5/lspsaga.nvim"
   },
   ["material.nvim"] = {
     loaded = true,
@@ -144,6 +159,11 @@ _G.packer_plugins = {
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-comment",
     url = "https://github.com/terrortylor/nvim-comment"
   },
+  ["nvim-dap"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-dap",
+    url = "https://github.com/mfussenegger/nvim-dap"
+  },
   ["nvim-lsp-installer"] = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
@@ -154,10 +174,20 @@ _G.packer_plugins = {
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-lsputils"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-lsputils",
+    url = "https://github.com/RishabhRD/nvim-lsputils"
+  },
   ["nvim-reload"] = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-reload",
     url = "https://github.com/famiu/nvim-reload"
+  },
+  ["nvim-snippy"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-snippy",
+    url = "https://github.com/dcampos/nvim-snippy"
   },
   ["nvim-transparent"] = {
     loaded = true,
@@ -209,6 +239,11 @@ _G.packer_plugins = {
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  popfix = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/popfix",
+    url = "https://github.com/RishabhRD/popfix"
+  },
   ["popup.nvim"] = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/popup.nvim",
@@ -218,16 +253,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/staline.nvim",
     url = "https://github.com/tamton-aquib/staline.nvim"
-  },
-  ["surround.nvim"] = {
-    loaded = true,
-    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/surround.nvim",
-    url = "https://github.com/blackCauldron7/surround.nvim"
-  },
-  ["tabout.nvim"] = {
-    loaded = true,
-    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/tabout.nvim",
-    url = "https://github.com/abecodes/tabout.nvim"
   },
   ["tagalong.vim"] = {
     loaded = true,
@@ -244,25 +269,30 @@ _G.packer_plugins = {
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["toggleterm.nvim"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
+  },
   ["vim-closetag"] = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/vim-closetag",
     url = "https://github.com/alvan/vim-closetag"
+  },
+  ["vim-jinja"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/vim-jinja",
+    url = "https://github.com/lepture/vim-jinja"
   },
   ["vim-maximizer"] = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/vim-maximizer",
     url = "https://github.com/szw/vim-maximizer"
   },
-  ["vim-vsnip"] = {
+  ["vim-surround"] = {
     loaded = true,
-    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/vim-vsnip",
-    url = "https://github.com/hrsh7th/vim-vsnip"
-  },
-  ["vim-vsnip-integ"] = {
-    loaded = true,
-    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ",
-    url = "https://github.com/hrsh7th/vim-vsnip-integ"
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
   }
 }
 

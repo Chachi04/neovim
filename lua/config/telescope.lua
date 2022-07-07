@@ -8,14 +8,14 @@ require("telescope").setup {
         },
         prompt_prefix = "> ",
         selection_caret = "> ",
-        entry_prefix = "  ",
+        entry_prefix = " ",
         file_sorter = require("telescope.sorters").get_fzy_sorter,
         file_ignore_patterns = {"node_modules/*", "vendor/*", "storage/*", "/*.png", "venv/*", "/*.pyc"},
         color_devicons = true,
         use_less = true,
-        file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-        grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-        qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+        -- file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+        -- grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+        -- qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
         mappings = {
             i = {
                 ["<C-x>"] = false,
@@ -28,8 +28,11 @@ require("telescope").setup {
         layout_strategy = "flex",
         layout_config = {
             horizontal = {
-                preview_width = 90,
+                preview_width = 0.45,
                 mirror = false
+            },
+            vertical = {
+                width = 0.8
             }
         }
     },
