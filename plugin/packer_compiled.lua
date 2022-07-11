@@ -69,6 +69,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["DAPInstall.nvim"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/DAPInstall.nvim",
+    url = "https://github.com/Pocco81/DAPInstall.nvim"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -164,6 +169,21 @@ _G.packer_plugins = {
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-dap",
     url = "https://github.com/mfussenegger/nvim-dap"
   },
+  ["nvim-dap-python"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-dap-python",
+    url = "https://github.com/mfussenegger/nvim-dap-python"
+  },
+  ["nvim-dap-ui"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
+    url = "https://github.com/rcarriga/nvim-dap-ui"
+  },
+  ["nvim-dap-virtual-text"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-dap-virtual-text",
+    url = "https://github.com/theHamsta/nvim-dap-virtual-text"
+  },
   ["nvim-lsp-installer"] = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
@@ -188,11 +208,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-snippy",
     url = "https://github.com/dcampos/nvim-snippy"
-  },
-  ["nvim-transparent"] = {
-    loaded = true,
-    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/nvim-transparent",
-    url = "https://github.com/xiyaowong/nvim-transparent"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
@@ -258,6 +273,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/chachi/.local/share/nvim/site/pack/packer/start/tagalong.vim",
     url = "https://github.com/AndrewRadev/tagalong.vim"
+  },
+  ["telescope-dap.nvim"] = {
+    loaded = true,
+    path = "/home/chachi/.local/share/nvim/site/pack/packer/start/telescope-dap.nvim",
+    url = "https://github.com/nvim-telescope/telescope-dap.nvim"
   },
   ["telescope-fzy-native.nvim"] = {
     loaded = true,

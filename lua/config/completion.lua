@@ -1,11 +1,27 @@
-local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
 local snippy = require("snippy")
 
 local cmp = require("cmp")
+
+local function complete_forward(fallback)
+    if snippy.can_expand_or_advance() then
+        snippy.expand_or_advance()
+    elseif cmp.visible() then
+        cmp.select_next_item()
+    else
+        fallback()
+    end
+end
+
+local function complete_backward(fallback)
+    if snippy.can_jump(-1) then
+        snippy.previous()
+    elseif cmp.visible() then
+        cmp.select_prev_item()
+    else
+        fallback()
+    end
+end
+
 cmp.setup(
     {
         snippet = {
@@ -15,82 +31,37 @@ cmp.setup(
                 require("snippy").expand_snippet(args.body) -- For `snippy` users.
             end
         },
-        window = {},
-        mapping = {
-            ["<C-n>"] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Insert}),
-            ["<C-p>"] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
-            ["<Down>"] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Insert}),
-            ["<Up>"] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
-            ["<C-j>"] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Insert}),
-            ["<C-k>"] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
-            ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-            ["<C-u>"] = cmp.mapping.scroll_docs(4),
-            -- ["<tab>"] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "s"}),
-            -- ["<s-tab>"] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
-            ["<CR>"] = cmp.mapping(
-                function(fallback)
-                    if snippy.can_expand_or_advance() then
-                        snippy.expand_or_advance()
-                    else
-                        fallback()
-                    end
-                end
-            ),
-            ["<tab>"] = cmp.mapping(
-                function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif snippy.can_expand_or_advance() then
-                        snippy.expand_or_advance()
-                    elseif has_words_before() then
-                        cmp.complete()
-                    else
-                        fallback()
-                    end
-                end,
-                {"i", "s"}
-            ),
-            ["<s-tab>"] = cmp.mapping(
-                function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    elseif snippy.can_jump(-1) then
-                        snippy.previous()
-                    else
-                        fallback()
-                    end
-                end,
-                {"i", "s"}
-            )
-
-            -- ["<CR>"] = cmp.mapping(function(fallback)
-            --         if cmp.visible() then
-            --             cmp.select_next_item()
-            --         elseif snippy.can
-            --         end
-            --         )
-            -- ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), {"i", "c"}),
-            -- ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), {"i", "c"}),
-            -- --            ["<Tab>"] = cmp.mapping.select_next_item({ cmp.SelectBehavior.{Insert,Select} }),
-            -- --            ["<S-Tab>"] = cmp.mapping.select_prev_item({ cmp.SelectBehavior.{Insert,Select} }),
-            -- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), {"i", "c"})
-            -- ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-            -- ["<C-c>"] = cmp.mapping(
-            --     {
-            --         i = cmp.mapping.abort(),
-            --         c = cmp.mapping.close()
-            --     }
-            -- ),
-            -- ["<CR>"] = cmp.mapping.confirm({select = true})
+        window = {
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered()
         },
+        mapping = cmp.mapping.preset.insert(
+            {
+                -- default
+                -- ["<C-n>"] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Insert}),
+                -- ["<C-p>"] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
+                ["<Down>"] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Insert}),
+                ["<Up>"] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
+                ["<C-j>"] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Insert}),
+                ["<C-k>"] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
+                ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-u>"] = cmp.mapping.scroll_docs(4),
+                ["<C-Space>"] = cmp.mapping.complete(),
+                ["<C-e>"] = cmp.mapping.abort(),
+                ["<CR>"] = cmp.mapping.confirm({select = true}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                ["<tab>"] = cmp.mapping(complete_forward, {"i", "s"}),
+                ["<s-tab>"] = cmp.mapping(complete_backward, {"i", "s"})
+            }
+        ),
         sources = cmp.config.sources(
             {
                 {name = "nvim_lsp"},
-                -- {name = "vsnip"},
                 {name = "snippy"},
                 {name = "buffer"},
                 {name = "path"},
+                {name = "dap"},
                 {name = "spell"}
+                -- {name = "vsnip"},
                 -- {name = "cmdline"}
             }
         ),
@@ -109,13 +80,18 @@ cmp.setup(
     }
 )
 
--- require("snippy").setup(
---     {
---         mappings = {
---             is = {
---                 ["<Tab>"] = "expand_or_advance",
---                 ["<S-Tab>"] = "previous"
---             }
---         }
---     }
--- )
+require("snippy").setup(
+    {
+        mappings = {
+            is = {
+                ["<Tab>"] = "expand_or_advance",
+                ["<S-Tab>"] = "previous"
+            }
+        }
+    }
+)
+
+-- local has_words_before = function()
+--     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+--     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+-- end

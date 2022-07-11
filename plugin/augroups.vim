@@ -69,3 +69,8 @@ augroup Lua
     autocmd VimEnter *.cpp set softtabstop=2
     autocmd VimEnter *.cpp set shiftwidth=2
 augroup END
+
+augroup Php
+    autocmd!
+    autocmd FileType php setlocal autoindent
+augroup END

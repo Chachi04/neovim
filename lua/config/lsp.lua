@@ -1,3 +1,60 @@
+require("nvim-lsp-installer").setup {
+    automatic_installation = true,
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+}
+
+local lspconfig = require("lspconfig")
+
+local servers = {
+    "angularls",
+    -- "eashls",
+    "gopls",
+    "grammarly",
+    "rust_analyzer",
+    "solang",
+    "sumneko_lua",
+    "clangd",
+    "csharp_ls",
+    "cssls",
+    "dartls",
+    "diagnosticls",
+    "emmet_ls",
+    "html",
+    "intelephense",
+    "jedi_language_server",
+    "jsonls",
+    "ltex",
+    "sqlls",
+    "sqls",
+    "tailwindcss",
+    "tsserver",
+    "vuels"
+}
+
+local configs = {
+    sumneko_lua = {
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = {"vim", "on_attach"}
+                }
+            }
+        }
+    }
+}
+
+for _, lsp in ipairs(servers) do
+    local config = configs[lsp] or {}
+    config.on_attach = on_attach
+    lspconfig[lsp].setup(config)
+end
+
 -- use the same configuration you would use for `vim.lsp.diagnostic.on_publish_diagnostics`.
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] =
 --     vim.lsp.with(

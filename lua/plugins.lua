@@ -21,20 +21,20 @@ require("packer").startup(
 
         use "hrsh7th/cmp-nvim-lsp"
         use "hrsh7th/cmp-path"
-        -- use "tzachar/cmp-fuzzy-path"
         use "hrsh7th/cmp-buffer"
-        -- use "tzachar/cmp-fuzzy-buffer"
         use "hrsh7th/cmp-cmdline"
         use "f3fora/cmp-spell"
-        use "lukas-reineke/cmp-under-comparator"
         use "rcarriga/cmp-dap"
+        use "lukas-reineke/cmp-under-comparator"
+        -- use "tzachar/cmp-fuzzy-path"
+        -- use "tzachar/cmp-fuzzy-buffer"
 
         -- Snippets
-        -- use "hrsh7th/cmp-vsnip"
-        -- use "hrsh7th/vim-vsnip"
         use "dcampos/nvim-snippy"
         use "dcampos/cmp-snippy"
         use "rafamadriz/friendly-snippets"
+        -- use "hrsh7th/cmp-vsnip"
+        -- use "hrsh7th/vim-vsnip"
         -- use "hrsh7th/vim-vsnip-integ"
 
         -- Treesitter plugin
@@ -45,6 +45,11 @@ require("packer").startup(
 
         -- Debug plugins
         use "mfussenegger/nvim-dap"
+        use "Pocco81/DAPInstall.nvim"
+        use "theHamsta/nvim-dap-virtual-text"
+        use "rcarriga/nvim-dap-ui"
+        use "mfussenegger/nvim-dap-python"
+        use "nvim-telescope/telescope-dap.nvim"
         -- use "puremourning/vimspector"
         use "szw/vim-maximizer"
 
@@ -58,19 +63,9 @@ require("packer").startup(
         -- File Explorer plugin
         use {"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"}
 
-        -- use {"stevearc/vim-arduino"}
-
-        -- use {
-        --     "nvim-orgmode/orgmode",
-        --     config = function()
-        --         require("orgmode").setup {}
-        --     end
-        -- }
-        -- Laravel plugin
-        -- use {"jwalton512/vim-blade", ft = {"laravel"}}
-
         -- Surround plugin
         -- use "blackCauldron7/surround.nvim"
+        -- use "ur4ltz/surround.nvim"
         use "tpope/vim-surround"
 
         -- Html plugins
@@ -101,9 +96,6 @@ require("packer").startup(
         -- Colorschemes
         -- use "gruvbox-community/gruvbox"
         use "marko-cerovac/material.nvim"
-
-        -- Transparency
-        use "xiyaowong/nvim-transparent"
 
         -- Dashboard
         -- use "goolord/alpha-nvim"
@@ -138,7 +130,7 @@ require("packer").startup(
     end
 )
 
-require("config.lspinstall")
+require("config.lsp")
 require("config.completion")
 require("config.treesitter")
 -- require("config.tabsout")

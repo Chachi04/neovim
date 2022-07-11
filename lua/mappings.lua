@@ -27,8 +27,13 @@ local mappings = {
     -- maximizer
     {"n", "<leader>m", "<cmd>MaximizerToggle<CR>"},
     -- toggle terminal
-    {"n", "`", "<cmd>exe v:count1 . 'ToggleTerm direction=float'<CR>"},
-    {"t", "`", "<C-\\><C-n><cmd>exe v:count1 . 'ToggleTerm direction=float'<CR>"},
+    {"n", "<c-`>", "<cmd>exe v:count1 . 'ToggleTerm direction=float'<CR>"},
+    {"n", "<leader>tt", "<cmd>exe v:count1 . 'ToggleTerm direction=float'<CR>"},
+    {"n", "<leader>tht", "<cmd>exe v:count1 . 'ToggleTerm direction=horizontal'<CR>"},
+    {"n", "<leader>tvt", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical'<CR>"},
+    {"t", "<c-`>", "<C-\\><C-n><cmd>exe v:count1 . 'ToggleTerm direction=float'<CR>"},
+    -- dap debug
+    {"n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>"},
     -- window switching
     {"n", "<C-j>", "<C-w><C-j>"},
     {"n", "<C-k>", "<C-w><C-k>"},
