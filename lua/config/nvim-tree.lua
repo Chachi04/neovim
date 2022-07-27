@@ -1,81 +1,54 @@
--- nvim_tree_show_icons, nvim_tree_icons, nvim_tree_create_in_closed_folder, nvim_tree_respect_buf_cwd, nv
--- im_tree_group_empty, nvim_tree_git_hl, nvim_tree_special_files, nvim_tree_highlight_opened_files, nvim_tree_root_folder_modifier, nvim_tree_add_trailing, nvim_tree_icon_padd
--- ing, nvim_tree_symlink_arrow
---
-vim.g.nvim_tree_refresh_wait = 1000
-
--- vim.g.nvim_tree_icons = {
---     default = "",
---     symlink = "",
---     git = {
---         unstaged = "✗",
---         staged = "✓",
---         unmerged = "",
---         renamed = "➜",
---         untracked = "★",
---         deleted = "",
---         ignored = "◌"
---     },
---     folder = {
---         default = "",
---         open = "",
---         empty = "",
---         empty_open = "",
---         symlink = "",
---         symlink_open = ""
---     },
---     lsp = {
---         hint = "",
---         info = "",
---         warning = "",
---         error = ""
---     }
--- }
-
--- NvimTreeOpen and NvimTreeClose are also available if you need them
-
--- a list of groups can be found at `:help nvim_tree_highlight`
--- highlight NvimTreeFolderIcon guibg=blue
 require "nvim-tree".setup {
     auto_reload_on_write = true,
     create_in_closed_folder = false,
     disable_netrw = true,
     hijack_cursor = false,
     hijack_netrw = true,
+    hijack_unnamed_buffer_when_opening = false,
     ignore_buffer_on_setup = false,
-    open_on_setup = false,
+    open_on_setup = true,
     open_on_setup_file = false,
     open_on_tab = false,
     sort_by = "name",
-    update_cwd = false,
+    root_dirs = {},
+    prefer_startup_root = false,
+    sync_root_with_cwd = false,
     reload_on_bufenter = true,
     respect_buf_cwd = true,
     view = {
+        adaptive_size = false,
+        centralize_selection = false,
         width = 30,
-        height = 30,
+        -- height = 30,
         hide_root_folder = false,
         side = "left",
-        preserve_window_proportions = false,
+        preserve_window_proportions = true,
         number = false,
-        relativenumber = false,
+        relativenumber = true,
         signcolumn = "yes",
-        auto_resize = false,
         mappings = {
             custom_only = false,
-            list = {}
+            list = {
+                {
+                    key = "u",
+                    action = "dir_up"
+                }
+            }
         }
     },
     renderer = {
-        add_trailing = true,
+        add_trailing = false,
         group_empty = true,
         highlight_git = true,
-        highlight_opened_files = "all",
+        full_name = true,
+        highlight_opened_files = "icon",
         root_folder_modifier = ":~",
         indent_markers = {
             enable = false,
             icons = {
                 corner = "└ ",
                 edge = "│ ",
+                item = "│ ",
                 none = "  "
             }
         },
@@ -91,9 +64,13 @@ require "nvim-tree".setup {
                 git = true
             },
             glyphs = {
-                default = "",
+                -- default = "",
+                default = "",
                 symlink = "",
+                bookmark = "",
                 folder = {
+                    arrow_closed = "",
+                    arrow_open = "",
                     default = "",
                     open = "",
                     empty = "",
@@ -110,33 +87,28 @@ require "nvim-tree".setup {
                     deleted = "",
                     ignored = "◌"
                 }
-                -- lsp = {
-                --     hint = "",
-                --     info = "",
-                --     warning = "",
-                --     error = ""
-                -- }
             }
         },
-        special_files = {"README.org", "README.md", "Makefile", "MAKEFILE", "Cargo.toml"}
+        special_files = {"README.org", "README.md", "Makefile", "MAKEFILE", "Cargo.toml"},
+        symlink_destination = true
     },
     hijack_directories = {
         enable = true,
         auto_open = true
     },
     update_focused_file = {
-        enable = false,
-        update_cwd = false,
+        enable = true,
+        update_root = true,
         ignore_list = {}
     },
     ignore_ft_on_setup = {},
     system_open = {
-        cmd = nil,
+        cmd = "",
         args = {}
     },
     diagnostics = {
-        enable = false,
-        show_on_dirs = false,
+        enable = true,
+        show_on_dirs = true,
         icons = {
             hint = "",
             info = "",
@@ -146,11 +118,13 @@ require "nvim-tree".setup {
     },
     filters = {
         dotfiles = false,
-        custom = {}
+        custom = {},
+        exclude = {".env"}
     },
     git = {
         enable = true,
-        ignore = true,
+        ignore = false,
+        show_on_dirs = true,
         timeout = 400
     },
     actions = {
@@ -159,6 +133,10 @@ require "nvim-tree".setup {
             enable = true,
             global = false,
             restrict_above_cwd = false
+        },
+        expand_all = {
+            max_folder_discovery = 300,
+            exclude = {}
         },
         open_file = {
             quit_on_open = false,
@@ -171,6 +149,9 @@ require "nvim-tree".setup {
                     buftype = {"nofile", "terminal", "help"}
                 }
             }
+        },
+        remove_file = {
+            close_window = true
         }
     },
     trash = {
@@ -190,20 +171,8 @@ require "nvim-tree".setup {
             copy_paste = false,
             diagnostics = false,
             git = false,
-            profile = false
+            profile = false,
+            watcher = false
         }
-    },
-    -- gitignores = true,
-    -- auto_close = false,
-    -- nvim_tree_disable_window_picker = true,
-    -- nvim_tree_indent_markers = true,
-    -- nvim_tree_window_picker_exclude = {
-    --     filetype = {"notify", "packer", "qf"},
-    --     buftype = {"terminal"}
-    -- },
-    -- nvim_tree_quit_on_open = true,
-    update_to_buf_dir = {
-        enable = true,
-        auto_open = true
     }
 }

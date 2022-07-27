@@ -70,6 +70,12 @@ utils.opt("b", "smartindent", true)
 utils.opt("b", "autoindent", true)
 utils.opt("b", "indentexpr", "")
 
+-- Clipboard
+-- utils.opt("o", "clipboard", "+")
+
+-- Auto update file that has changed outside of
+-- utils.opt("g", "autoread", true)
+
 utils.opt("o", "completeopt", "menuone,noinsert,noselect")
 
 cmd "let g:python3_host_prog = '/usr/bin/python'"
