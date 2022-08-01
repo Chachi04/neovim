@@ -1,5 +1,3 @@
-local utils = require("utils")
-
 local cmd = vim.cmd
 local indent = 4
 local undodir = "/home/chachi/.local/share/nvim/undo"
@@ -7,78 +5,99 @@ local undodir = "/home/chachi/.local/share/nvim/undo"
 cmd "syntax enable"
 cmd "filetype plugin indent on"
 
-utils.opt("o", "exrc", true)
-utils.opt("o", "secure", true)
--- utils.opt("o", "shell", "/usr/bin/zsh")
+vim.opt.exrc = true
+vim.opt.secure = true
+-- vim.opt.shell = "/usr/bin/zsh"
 
 -- UI
--- utils.opt("o", "guicursor", "")
-utils.opt("w", "number", true)
-utils.opt("w", "relativenumber", true)
-utils.opt("b", "modeline", false)
-utils.opt("w", "signcolumn", "auto")
-utils.opt("o", "showmode", false)
-utils.opt("o", "termguicolors", true)
+-- vim.opt.guicursor = ""
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.modeline = false
+vim.opt.signcolumn = "auto"
+vim.opt.showmode = false
+vim.opt.termguicolors = true
 
 -- Searching
-utils.opt("o", "hlsearch", false)
-utils.opt("o", "ignorecase", true)
-utils.opt("o", "smartcase", true)
-utils.opt("o", "incsearch", true)
+vim.opt.hlsearch = false
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.incsearch = true
 
 -- Ignores
-utils.opt("o", "wildmenu", true)
-utils.opt("o", "wildignorecase", true)
-utils.opt("o", "pumblend", 30)
-vim.o.wildignore = vim.o.wildignore .. "*.o,*.obj,*.~,*.class,"
-vim.o.wildignore = vim.o.wildignore .. "*.swp,*.tmp,"
-vim.o.wildignore = vim.o.wildignore .. "*.mp3,*.mp4,"
-vim.o.wildignore = vim.o.wildignore .. "*.bmp,*.gif,*ico,*.jpg,*.png,"
-vim.o.wildignore = vim.o.wildignore .. "*.pdf,*.doc,*.docs,*.ppt,*.pptx,"
-vim.o.wildignore = vim.o.wildignore .. "*.rar,*.zip,*.tar,*.tar.gz,*.tar.xz,"
-vim.o.wildignore = vim.o.wildignore .. "**/node_moduels/*,"
-vim.o.wildignore = vim.o.wildignore .. "**/.git/*,"
+vim.opt.wildmenu = true
+vim.opt.wildignorecase = true
+vim.opt.pumblend = 30
+vim.opt.wildignore:append(
+    {
+        "*.o",
+        "*.obj",
+        "*.~",
+        "*.class",
+        "*.swp",
+        "*.tmp",
+        "*.mp3",
+        "*.mp4",
+        "*.bmp",
+        "*.gif",
+        "*ico",
+        "*.jpg",
+        "*.png",
+        "*.pdf",
+        "*.doc",
+        "*.docs",
+        "*.ppt",
+        "*.pptx",
+        "*.rar",
+        "*.zip",
+        "*.tar",
+        "*.tar.gz",
+        "*.tar.xz",
+        "**/node_moduels/*",
+        "**/.git/*"
+    }
+)
 
-utils.opt("w", "wrap", false)
+vim.opt.wrap = false
 
-utils.opt("o", "errorbells", false)
-utils.opt("o", "hidden", true)
-utils.opt("o", "joinspaces", false)
-vim.o.shortmess = vim.o.shortmess .. "c"
-utils.opt("o", "scrolloff", 10)
-utils.opt("o", "updatetime", 50)
+vim.opt.errorbells = false
+vim.opt.hidden = true
+vim.opt.joinspaces = false
+vim.opt.shortmess:append({c = true})
+vim.opt.scrolloff = 10
+vim.opt.updatetime = 50
 
-utils.opt("o", "backup", false)
-utils.opt("b", "swapfile", false)
-utils.opt("b", "undofile", true)
-utils.opt("o", "undodir", undodir)
+vim.opt.backup = false
+vim.opt.swapfile = false
+vim.opt.undofile = true
+vim.opt.undodir = undodir
 if not vim.fn.isdirectory(undodir) then
     os.execute("mkdir -p " .. undodir)
 end
 
 -- Tabs
-utils.opt("b", "tabstop", indent)
-utils.opt("b", "softtabstop", indent)
-utils.opt("b", "shiftwidth", indent)
-utils.opt("o", "smarttab", true)
-utils.opt("o", "shiftround", true)
-utils.opt("b", "expandtab", true)
+vim.opt.tabstop = indent
+vim.opt.softtabstop = indent
+vim.opt.shiftwidth = indent
+vim.opt.smarttab = true
+vim.opt.shiftround = true
+vim.opt.expandtab = true
 
 -- Indents
-utils.opt("b", "cindent", true)
-utils.opt("b", "smartindent", true)
-utils.opt("b", "autoindent", true)
-utils.opt("b", "indentexpr", "")
+vim.opt.cindent = true
+vim.opt.smartindent = true
+vim.opt.autoindent = true
+vim.opt.indentexpr = ""
 
 -- Clipboard
--- utils.opt("o", "clipboard", "+")
+vim.opt.clipboard = "unnamedplus"
 
 -- Auto update file that has changed outside of
--- utils.opt("g", "autoread", true)
+vim.autoread = true
 
-utils.opt("o", "completeopt", "menuone,noinsert,noselect")
+vim.opt.completeopt = {"menuone", "noinsert", "noselect"}
 
-cmd "let g:python3_host_prog = '/usr/bin/python'"
+vim.g.python3_host_prog = "/usr/bin/python"
 
 -- Custom commands
 -- cmd "command serv"
