@@ -41,6 +41,8 @@ require("packer").startup(function(use)
 	use("f3fora/cmp-spell")
 	use("rcarriga/cmp-dap")
 	use("lukas-reineke/cmp-under-comparator")
+	use("zbirenbaum/copilot.lua")
+	use({ "zbirenbaum/copilot-cmp", module = "copilot_cmp" })
 	-- use "tzachar/cmp-fuzzy-path"
 	-- use "tzachar/cmp-fuzzy-buffer"
 	-- }}}
@@ -72,20 +74,14 @@ require("packer").startup(function(use)
 	-- }}}
 
 	-- {{{ Utils - surround, vim-closetag, tagalong, pears, nvim-ts-autotag, formatting, smooth scrolling
-	-- use "jose-elias-alvarez/null-ls.nvim"
 	use("lewis6991/impatient.nvim")
-	use("tpope/vim-surround")
-	use("alvan/vim-closetag")
-	use("AndrewRadev/tagalong.vim")
-	use("steelsojka/pears.nvim")
-	use("windwp/nvim-ts-autotag")
+	use("kylechui/nvim-surround")
+	use("windwp/nvim-autopairs") -- autoclose brackets
+	use("windwp/nvim-ts-autotag") -- autocomlete html tags
 	use("mhartington/formatter.nvim")
-	-- use "karb94/neoscroll.nvim"
-	use("declancm/cinnamon.nvim")
+	use("declancm/cinnamon.nvim") -- smooth scroll
+	-- use "jose-elias-alvarez/null-ls.nvim"
 	-- use {"iamcco/markdown-preview.nvim", ft = "markdown"}
-	-- use "abecodes/tabout.nvim"
 	-- use "lepture/vim-jinja"
-	-- use "blackCauldron7/surround.nvim"
-	-- use "ur4ltz/surround.nvim"
 	-- }}}
 end)
