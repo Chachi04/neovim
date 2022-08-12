@@ -1,10 +1,9 @@
--- ensure that packer is installed
 require("bootstrap")
 
 require("settings")
 
-require("plugins")
-
 require("mappings")
 
-require("autogroups")
+require("autocmds")
+
+require("plugins")

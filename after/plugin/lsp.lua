@@ -1,59 +1,96 @@
-require("nvim-lsp-installer").setup {
-    automatic_installation = true,
-    ui = {
-        icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }
+require("mason").setup({
+	automatic_installation = true,
+	ui = {
+		icons = {
+			server_installed = "✓",
+			server_pending = "➜",
+			server_uninstalled = "✗",
+		},
+	},
+})
+
+local servers = {
+	"angularls",
+	-- "eashls",
+	"gopls",
+	"grammarly",
+	"rust_analyzer",
+	"solang",
+	"sumneko_lua",
+	"clangd",
+	"csharp_ls",
+	"cssls",
+	"dartls",
+	"diagnosticls",
+	"emmet_ls",
+	"html",
+	-- "intelephense",
+	"jedi_language_server",
+	"jsonls",
+	"ltex",
+	"sqlls",
+	"sqls",
+	"tailwindcss",
+	"tsserver",
+	"vuels",
+	"phpactor",
+	"psalm",
 }
+
+require("mason-lspconfig").setup({
+	ensure_installed = servers,
+})
 
 local lspconfig = require("lspconfig")
 
-local servers = {
-    "angularls",
-    -- "eashls",
-    "gopls",
-    "grammarly",
-    "rust_analyzer",
-    "solang",
-    "sumneko_lua",
-    "clangd",
-    "csharp_ls",
-    "cssls",
-    "dartls",
-    "diagnosticls",
-    "emmet_ls",
-    "html",
-    "intelephense",
-    "jedi_language_server",
-    "jsonls",
-    "ltex",
-    "sqlls",
-    "sqls",
-    "tailwindcss",
-    "tsserver",
-    "vuels"
-}
-
 local configs = {
-    sumneko_lua = {
-        settings = {
-            Lua = {
-                diagnostics = {
-                    globals = {"vim", "on_attach"}
-                }
-            }
-        }
-    }
+	sumneko_lua = {
+		settings = {
+			Lua = {
+				diagnostics = {
+					globals = { "vim", "on_attach" },
+				},
+			},
+		},
+	},
 }
 
 for _, lsp in ipairs(servers) do
-    local config = configs[lsp] or {}
-    config.on_attach = on_attach
-    lspconfig[lsp].setup(config)
+	local config = configs[lsp] or {}
+	config.on_attach = on_attach
+	lspconfig[lsp].setup(config)
 end
+
+local keymaps = {
+	{ "n", "gr", vim.lsp.buf.rename },
+	{ "n", "<leader>rn", vim.lsp.buf.rename },
+	{ "n", "gx", vim.lsp.buf.code_action },
+	{ "x", "gx", vim.lsp.buf.range_code_action },
+	{ "n", "K", "<cmd>Lspsaga hover_doc<CR>" },
+	{ "n", "go", "<cmd>Lspsaga show_line_diagnostics<CR>" },
+	{ "n", "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>" },
+	{ "n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>" },
+	{ "n", "<leader>e", vim.diagnostic.open_float },
+}
+
+local options = { noremap = true, silent = true }
+
+for _, args in ipairs(keymaps) do
+	vim.keymap.set(args[1], args[2], args[3], options)
+end
+
+-- vim.cmd([[
+--     augroup lspsaga_filetypes
+--         autocmd!
+--         autocmd FileType LspsagaHover nnoremap <buffer><nowait><silent> <C-c> <cmd>close!<cr>
+-- ]])
+
+-- vim.api.nvim_create_autocmd("FileType LspsagaHover", {
+-- 	command = "nnoremap <buffer><nowait><silent> <c-c> <cmd>close!<cr>",
+-- })
+
+-- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, options)
+-- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 
 -- use the same configuration you would use for `vim.lsp.diagnostic.on_publish_diagnostics`.
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] =

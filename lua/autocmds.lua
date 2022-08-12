@@ -1,29 +1,40 @@
 -- Highlight on yank
-local yankGroup = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+local yank_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
 	command = "silent! lua vim.highlight.on_yank()",
-	group = yankGroup,
+	group = yank_group,
 })
 
-local templateGroup = vim.api.nvim_create_augroup("Templates", { clear = true })
+local template_group = vim.api.nvim_create_augroup("Templates", { clear = true })
 vim.api.nvim_create_autocmd("BufNewFile", {
 	pattern = { "*.*" },
 	command = "silent! execute '0r ~/.config/nvim/skeletons/skeleton.'.expand('<afile>:e')",
-	group = templateGroup,
+	group = template_group,
 })
 vim.api.nvim_create_autocmd("BufNewFile", {
-	command = "%substitute#[:VIM_EVAL:](.{-})[:END_EVAL:]#=eval(submatch(1))#ge",
-	group = templateGroup,
+	command = "%substitute#\\[:VIM_EVAL:\\]\\(.\\{-\\}\\)\\[:END_EVAL:\\]#\\=eval(submatch(1))#ge",
+	group = template_group,
 })
 
+local packer_plugins_group = vim.api.nvim_create_augroup("CompilePacker", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
 	pattern = "plugins.lua",
 	command = "source <afile> | PackerCompile",
+	group = packer_plugins_group,
 })
 
+local jinja_group = vim.api.nvim_create_augroup("JinjaHTML", { clear = true })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "*.html", "*.htm", "*.shtml", "*stm" },
 	command = "set ft=html.jinja",
+	group = jinja_group,
+})
+
+local nvim_tree_auto_close_group = vim.api.nvim_create_augroup("AutoCloseNvimTree", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*",
+	command = "if (winnr('$') == 1 && &filetype == 'NvimTree') | q | endif",
+	group = nvim_tree_auto_close_group,
 })
 
 -- function! RunPython()

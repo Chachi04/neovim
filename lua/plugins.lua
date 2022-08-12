@@ -1,152 +1,91 @@
-require("packer").startup(
-    function(use)
-        -- Packer can manage itself
-        use "wbthomason/packer.nvim"
+require("packer").startup(function(use)
+	use("wbthomason/packer.nvim")
 
-        -- Lsp plugins
-        use "neovim/nvim-lspconfig"
-        use "nvim-lua/lsp_extensions.nvim"
-        use "williamboman/nvim-lsp-installer"
-        use "nvim-lua/lsp-status.nvim"
-        use {"RishabhRD/nvim-lsputils", requires = {"RishabhRD/popfix"}}
-        use "tami5/lspsaga.nvim"
+	-- {{{ UI - coloscheme, treesitter, gitsigns, statusline, nvim-tree, rainbow-parens
+	use("marko-cerovac/material.nvim")
+	use("nvim-treesitter/nvim-treesitter")
+	use("lewis6991/gitsigns.nvim")
+	use("tamton-aquib/staline.nvim")
+	use("kyazdani42/nvim-tree.lua")
+	use("p00f/nvim-ts-rainbow")
+	use("stevearc/dressing.nvim")
+	-- use "goolord/alpha-nvim"
+	-- use "lukas-reineke/indent-blankline.nvim"
+	-- }}}
 
-        -- Telescope plugins
-        use {"nvim-telescope/telescope.nvim", requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}}
-        use "nvim-telescope/telescope-fzy-native.nvim"
-        use "kyazdani42/nvim-web-devicons"
+	-- {{{ Lsp
+	use("neovim/nvim-lspconfig")
+	use("williamboman/mason.nvim")
+	use("williamboman/mason-lspconfig.nvim")
+	use("nvim-lua/lsp_extensions.nvim")
+	use("nvim-lua/lsp-status.nvim")
+	use({ "RishabhRD/nvim-lsputils", requires = { "RishabhRD/popfix" } })
+	use("kkharji/lspsaga.nvim")
+	-- }}}
 
-        -- Completion plugins
-        use "hrsh7th/nvim-cmp"
+	-- {{{ Telescope
+	use("nvim-telescope/telescope.nvim")
+	use("nvim-lua/popup.nvim")
+	use("nvim-lua/plenary.nvim")
+	use("nvim-telescope/telescope-fzy-native.nvim")
+	use("kyazdani42/nvim-web-devicons")
+	-- }}}
 
-        use "hrsh7th/cmp-nvim-lsp"
-        use "hrsh7th/cmp-path"
-        use "hrsh7th/cmp-buffer"
-        use "hrsh7th/cmp-cmdline"
-        use "f3fora/cmp-spell"
-        use "rcarriga/cmp-dap"
-        use "lukas-reineke/cmp-under-comparator"
-        -- use "tzachar/cmp-fuzzy-path"
-        -- use "tzachar/cmp-fuzzy-buffer"
+	-- {{{ Completion
+	use("hrsh7th/nvim-cmp")
 
-        -- Snippets
-        use "dcampos/nvim-snippy"
-        use "dcampos/cmp-snippy"
-        use "rafamadriz/friendly-snippets"
-        -- use "hrsh7th/cmp-vsnip"
-        -- use "hrsh7th/vim-vsnip"
-        -- use "hrsh7th/vim-vsnip-integ"
+	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-path")
+	use("hrsh7th/cmp-buffer")
+	use("hrsh7th/cmp-cmdline")
+	use("f3fora/cmp-spell")
+	use("rcarriga/cmp-dap")
+	use("lukas-reineke/cmp-under-comparator")
+	-- use "tzachar/cmp-fuzzy-path"
+	-- use "tzachar/cmp-fuzzy-buffer"
+	-- }}}
 
-        -- Treesitter plugin
-        use "nvim-treesitter/nvim-treesitter"
+	-- {{{ Snippets
+	use("dcampos/nvim-snippy")
+	use("dcampos/cmp-snippy")
+	use("rafamadriz/friendly-snippets")
+	-- use "hrsh7th/cmp-vsnip"
+	-- use "hrsh7th/vim-vsnip"
+	-- use "hrsh7th/vim-vsnip-integ"
+	-- }}}
 
-        -- Terminal integration
-        use "akinsho/toggleterm.nvim"
+	-- {{{ Debug
+	use({ "mfussenegger/nvim-dap" })
+	use({ "Pocco81/DAPInstall.nvim", opt = true })
+	use({ "theHamsta/nvim-dap-virtual-text", opt = true })
+	use({ "rcarriga/nvim-dap-ui", opt = true })
+	use({ "mfussenegger/nvim-dap-python", opt = true })
+	use({ "nvim-telescope/telescope-dap.nvim", opt = true })
+	-- use "puremourning/vimspector"
+	-- use "szw/vim-maximizer"
+	-- }}}
 
-        -- Debug plugins
-        use "mfussenegger/nvim-dap"
-        use "Pocco81/DAPInstall.nvim"
-        use "theHamsta/nvim-dap-virtual-text"
-        use "rcarriga/nvim-dap-ui"
-        use "mfussenegger/nvim-dap-python"
-        use "nvim-telescope/telescope-dap.nvim"
-        -- use "puremourning/vimspector"
-        use "szw/vim-maximizer"
+	-- {{{ Comments
+	use("terrortylor/nvim-comment")
+	use("JoosepAlviste/nvim-ts-context-commentstring")
+	-- use "glepnir/prodoc.nvim"
+	-- }}}
 
-        -- Git plugins
-        use "lewis6991/gitsigns.nvim"
-        -- use "tpope/vim-fugitive"
-
-        -- Statusline
-        use "tamton-aquib/staline.nvim"
-
-        -- File Explorer plugin
-        use {"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"}
-
-        -- Surround plugin
-        -- use "blackCauldron7/surround.nvim"
-        -- use "ur4ltz/surround.nvim"
-        use "tpope/vim-surround"
-
-        -- Html plugins
-        use "alvan/vim-closetag"
-        use "AndrewRadev/tagalong.vim"
-
-        -- Jinja
-        use "lepture/vim-jinja"
-
-        -- Autopair plugin
-        use "steelsojka/pears.nvim"
-
-        -- Autotag plugin
-        use "windwp/nvim-ts-autotag"
-
-        -- Tabout
-        -- use "abecodes/tabout.nvim"
-
-        -- Rainbow parentheses
-        use "p00f/nvim-ts-rainbow"
-
-        -- Comments plugin
-        use "terrortylor/nvim-comment"
-
-        use "JoosepAlviste/nvim-ts-context-commentstring"
-        -- use "glepnir/prodoc.nvim"
-
-        -- Colorschemes
-        -- use "gruvbox-community/gruvbox"
-        use "marko-cerovac/material.nvim"
-
-        -- Dashboard
-        -- use "goolord/alpha-nvim"
-
-        -- Markdown Previewer
-        -- use {"iamcco/markdown-preview.nvim", ft = "markdown"}
-
-        -- Prettier
-        use "sbdchd/neoformat"
-
-        -- Smooth scroll plugin
-        use "karb94/neoscroll.nvim"
-
-        -- Reload plugin
-        use "famiu/nvim-reload"
-
-        -- Misc
-        -- use {
-        --   "lukas-reineke/indent-blankline.nvim",
-        --   config = function()
-        --     vim.cmd "highlight IndentBlanklineChar guifg=#4d4d4d gui=nocombine"
-        --     vim.cmd "highlight IndentBlanklineSpaceChar guifg=#4d4d4d gui=nocombine"
-        --     vim.cmd "highlight IndentBlanklineContextChar guifg=#737373 gui=nocombine"
-        --     vim.cmd "let g:indent_blankline_use_treesitter = v:true"
-        --     vim.cmd "let g:indent_blankline_show_current_context = v:true"
-        --     vim.cmd "let g:indent_blankline_buftype_exclude = ['terminal', 'nofile']"
-        --     vim.cmd "let g:indent_blankline_filetype_exclude = ['help']"
-        --     vim.cmd "let g:indent_blankline_char = '▏'"
-        --     vim.cmd "let g:indent_blankline_space_char = ' '"
-        --   end
-        -- }
-    end
-)
-
-require("config.lsp")
-require("config.completion")
-require("config.treesitter")
--- require("config.tabsout")
-require("config.gitsigns")
-require("config.statusline")
-require("config.nvim-tree")
-require("config.surround")
-require("config.pears")
-require("config.nvim-ts-autotag")
-require("config.comments")
-require("config.colorscheme")
-require("config.smoothscroll")
-require("config.signify")
-require("config.telescope")
-require("config.lsp")
-require("config.dap-debug")
--- require("config.dashboard")
-require("config.prettier")
-require("config.floaterm")
+	-- {{{ Utils - surround, vim-closetag, tagalong, pears, nvim-ts-autotag, formatting, smooth scrolling
+	-- use "jose-elias-alvarez/null-ls.nvim"
+	use("lewis6991/impatient.nvim")
+	use("tpope/vim-surround")
+	use("alvan/vim-closetag")
+	use("AndrewRadev/tagalong.vim")
+	use("steelsojka/pears.nvim")
+	use("windwp/nvim-ts-autotag")
+	use("mhartington/formatter.nvim")
+	-- use "karb94/neoscroll.nvim"
+	use("declancm/cinnamon.nvim")
+	-- use {"iamcco/markdown-preview.nvim", ft = "markdown"}
+	-- use "abecodes/tabout.nvim"
+	-- use "lepture/vim-jinja"
+	-- use "blackCauldron7/surround.nvim"
+	-- use "ur4ltz/surround.nvim"
+	-- }}}
+end)

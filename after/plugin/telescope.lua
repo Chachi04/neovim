@@ -1,31 +1,7 @@
 local actions = require("telescope.actions")
 local action_layout = require("telescope.actions.layout")
 
-local previewers = require("telescope.previewers")
-local Job = require("plenary.job")
-local new_maker = function(filepath, bufnr, opts)
-    filepath = vim.fn.expand(filepath)
-    Job:new(
-        {
-            command = "file",
-            args = {"--mime-type", "-b", filepath},
-            on_exit = function(j)
-                local mime_type = vim.split(j:result()[1], "/")[1]
-                if mime_type == "text" then
-                    previewers.buffer_previewer_maker(filepath, bufnr, opts)
-                else
-                    -- maybe we want to write something to the buffer here
-                    vim.schedule(
-                        function()
-                            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {"BINARY"})
-                        end
-                    )
-                end
-            end
-        }
-    ):sync()
-end
-
+-- {{{ Telescope setup
 require("telescope").setup {
     defaults = {
         vimgrep_arguments = {
@@ -38,7 +14,6 @@ require("telescope").setup {
             "--smart-case",
             "--trim" -- add this value
         },
-        -- buffer_previewer_maker = new_maker, -- don't preview binaries
         prompt_prefix = "> ",
         selection_caret = "> ",
         entry_prefix = " ",
@@ -82,5 +57,46 @@ require("telescope").setup {
         }
     }
 }
+-- }}}
+
+local project_files = function()
+    local opts = {follow = true} -- define here if you want to define something
+    local ok = pcall(require "telescope.builtin".git_files, opts)
+    if not ok then
+        require "telescope.builtin".find_files(opts)
+    end
+end
+
+local search_dotfiles = function()
+    require("telescope.builtin").find_files(
+        {
+            prompt_title = "< VimRC >",
+            cwd = "~/.config/nvim"
+        }
+    )
+end
 
 require("telescope").load_extension("fzy_native")
+
+local keymaps = {
+    {"n", "<C-p>", project_files},
+    {"n", "<leader><leader>", project_files},
+    {"n", "<leader>.", require("telescope.builtin").find_files},
+    {"n", "<leader>ff", require("telescope.builtin").find_files},
+    {"n", "<leader>fa", require("telescope.builtin").live_grep},
+    {"n", "<leader>/", require("telescope.builtin").live_grep},
+    {"n", "<leader>gs", require("telescope.builtin").grep_string},
+    {"n", "<leader>fb", require("telescope.builtin").buffers},
+    {"n", "<leader>bi", require("telescope.builtin").buffers},
+    {"n", "<leader>fd", require("telescope.builtin").lsp_definitions},
+    {"n", "<leader>vrc", search_dotfiles},
+    {"n", "<leader>fp", search_dotfiles},
+    {"n", "<leader>gc", require("telescope.builtin").git_commits},
+    {"n", "<leader>gb", require("telescope.builtin").git_branches}
+}
+
+local opts = {noremap = true, silent = true}
+
+for _, args in pairs(keymaps) do
+    vim.keymap.set(args[1], args[2], args[3], opts)
+end
