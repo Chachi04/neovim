@@ -53,7 +53,9 @@ vim.keymap.set("v", "<leader>P", '"+P')
 -- }}}
 
 -- {{{ folds
-vim.keymap.set("n", "<leader>z", "za")
+vim.keymap.set("n", "<leader>zz", "za")
+vim.keymap.set("n", "<leader>zo", "zR")
+vim.keymap.set("n", "<leader>zc", "zM")
 vim.keymap.set("v", "<leader>z", "zf")
 -- }}}
 
