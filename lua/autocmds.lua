@@ -1,13 +1,12 @@
 -- Highlight on yank
 local yank_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-	command = "silent! lua vim.highlight.on_yank()",
+	command = "silent! lua vim.highlight.on_yank({higroup='IncSearch', timeout=100})",
 	group = yank_group,
 })
 
 local template_group = vim.api.nvim_create_augroup("Templates", { clear = true })
 vim.api.nvim_create_autocmd("BufNewFile", {
-	pattern = { "*.*" },
 	command = "silent! execute '0r ~/.config/nvim/skeletons/skeleton.'.expand('<afile>:e')",
 	group = template_group,
 })
@@ -32,7 +31,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 
 local nvim_tree_auto_close_group = vim.api.nvim_create_augroup("AutoCloseNvimTree", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = "*",
 	command = "if (winnr('$') == 1 && &filetype == 'NvimTree') | q | endif",
 	group = nvim_tree_auto_close_group,
 })
