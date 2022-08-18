@@ -1,3 +1,4 @@
+vim.opt.laststatus = 3
 require("staline").setup({
 	defaults = {
 		expand_null_ls = false, -- This expands out all the null-ls sources to be shown
@@ -9,7 +10,8 @@ require("staline").setup({
 
 		fg = "#000000", -- Foreground text color.
 		bg = "none", -- Default background is transparent.
-		inactive_color = "#303030",
+		-- inactive_color = "#303030",
+		inactive_color = "#282828",
 		inactive_bgcolor = "none",
 		true_colors = true, -- true lsp colors.
 		font_active = "none", -- "bold", "italic", "bold,italic", etc

@@ -7,10 +7,13 @@ require("packer").startup(function(use)
 	use("lewis6991/gitsigns.nvim")
 	use("tamton-aquib/staline.nvim")
 	use("kyazdani42/nvim-tree.lua")
-	use("p00f/nvim-ts-rainbow")
 	use("stevearc/dressing.nvim")
-	-- use "goolord/alpha-nvim"
-	-- use "lukas-reineke/indent-blankline.nvim"
+	use("m-demare/hlargs.nvim")
+	-- use("folke/twilight.nvim")
+	-- use("lukas-reineke/indent-blankline.nvim")
+	-- use("nvim-treesitter/nvim-treesitter-context")
+	-- use("p00f/nvim-ts-rainbow")
+	-- use("goolord/alpha-nvim")
 	-- }}}
 
 	-- {{{ Lsp
