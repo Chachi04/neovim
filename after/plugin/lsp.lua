@@ -1,96 +1,90 @@
 require("mason").setup({
-	automatic_installation = true,
 	ui = {
+		check_outdated_packages_on_open = false,
+		border = "rounded",
 		icons = {
-			server_installed = "✓",
-			server_pending = "➜",
-			server_uninstalled = "✗",
+			package_installed = "✓",
+			package_pending = "➜",
+			package_uninstalled = "✗",
 		},
 	},
 })
 
-local servers = {
-	"angularls",
-	-- "eashls",
-	"gopls",
-	"grammarly",
-	"rust_analyzer",
-	"solang",
-	"sumneko_lua",
-	"clangd",
-	"csharp_ls",
-	"cssls",
-	"dartls",
-	"diagnosticls",
-	"emmet_ls",
-	"html",
-	-- "intelephense",
-	"jedi_language_server",
-	"jsonls",
-	"ltex",
-	"sqlls",
-	"sqls",
-	"tailwindcss",
-	"tsserver",
-	"vuels",
-	"phpactor",
-	"psalm",
-}
-
 require("mason-lspconfig").setup({
-	ensure_installed = servers,
+	ensure_installed = {
+		"sumneko_lua",
+		"rust_analyzer",
+		"pyright",
+		"clangd",
+		"cssls",
+		"emmet_ls",
+		"eslint",
+		"html",
+		"tsserver",
+	},
+	automatic_installation = true,
 })
 
 local lspconfig = require("lspconfig")
 
-local configs = {
-	sumneko_lua = {
-		settings = {
-			Lua = {
-				diagnostics = {
-					globals = { "vim", "on_attach" },
-				},
+local lsp_defaults = {
+	flags = {
+		debounce_text_changes = 150,
+	},
+	capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	on_attach = function(client, bufnr)
+		vim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
+	end,
+}
+
+lspconfig.util.default_config = vim.tbl_deep_extend("force", lspconfig.util.default_config, lsp_defaults)
+
+lspconfig.sumneko_lua.setup({
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim", "on_attach" },
 			},
 		},
 	},
-}
-
-for _, lsp in ipairs(servers) do
-	local config = configs[lsp] or {}
-	config.on_attach = on_attach
-	lspconfig[lsp].setup(config)
-end
-
-local keymaps = {
-	{ "n", "gr", vim.lsp.buf.rename },
-	{ "n", "<leader>rn", vim.lsp.buf.rename },
-	{ "n", "gx", vim.lsp.buf.code_action },
-	{ "x", "gx", vim.lsp.buf.range_code_action },
-	{ "n", "K", "<cmd>Lspsaga hover_doc<CR>" },
-	{ "n", "go", "<cmd>Lspsaga show_line_diagnostics<CR>" },
-	{ "n", "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>" },
-	{ "n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>" },
-	{ "n", "<leader>e", vim.diagnostic.open_float },
-}
+})
+lspconfig.pyright.setup({})
+lspconfig.clangd.setup({})
+lspconfig.cssls.setup({})
+lspconfig.emmet_ls.setup({})
+lspconfig.eslint.setup({})
+lspconfig.html.setup({})
+lspconfig.rust_analyzer.setup({})
+lspconfig.tsserver.setup({})
 
 local options = { noremap = true, silent = true }
+vim.keymap.set("n", "gr", vim.lsp.buf.rename, options)
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, options)
+vim.keymap.set("n", "gx", vim.lsp.buf.code_action, options)
+vim.keymap.set("x", "gx", vim.lsp.buf.range_code_action, options)
+vim.keymap.set("n", "K", vim.lsp.buf.hover, options)
+-- vim.keymap.set("n", "go", vim.lsp.buf.show_line_diagnostics, options)
+-- vim.keymap.set("n", "gj", vim.lsp.buf., options)
+-- vim.keymap.set("n", "gk", vim.lsp.buf., options)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, options)
 
-for _, args in ipairs(keymaps) do
-	vim.keymap.set(args[1], args[2], args[3], options)
-end
+require("copilot").setup({
+	server_opts_overrides = {
+		trace = "verbose",
+		settings = {
+			editor = {
+				showEditorCompletions = true,
+			},
+			advanced = {
+				inlineSuggestCount = 5, -- #completions for getCompletions
+			},
+		},
+	},
+})
 
--- vim.cmd([[
---     augroup lspsaga_filetypes
---         autocmd!
---         autocmd FileType LspsagaHover nnoremap <buffer><nowait><silent> <C-c> <cmd>close!<cr>
--- ]])
-
--- vim.api.nvim_create_autocmd("FileType LspsagaHover", {
--- 	command = "nnoremap <buffer><nowait><silent> <c-c> <cmd>close!<cr>",
--- })
-
--- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, options)
--- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
+require("copilot_cmp").setup()
+-- { "n", "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>" },
+-- { "n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>" },
 
 -- use the same configuration you would use for `vim.lsp.diagnostic.on_publish_diagnostics`.
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] =

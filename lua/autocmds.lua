@@ -35,6 +35,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = nvim_tree_auto_close_group,
 })
 
+-- local lsp_reload_group = vim.api.nvim_create_augroup("LspConfigReloadBuffer", { clear = true })
+-- vim.api.nvim_create_autocmd("VimEnter", {
+-- 	command = "e",
+-- 	group = lsp_reload_group,
+-- })
+
 -- function! RunPython()
 --     let file = expand("%")
 --     call TermToggle(12)

@@ -9,9 +9,9 @@ require("staline").setup({
 		-- line_column = "[%l/%L] :%c並", -- `:h stl` to see all flags.
 
 		fg = "#000000", -- Foreground text color.
-		bg = "none", -- Default background is transparent.
-		-- inactive_color = "#303030",
-		inactive_color = "#282828",
+		bg = "#202328", -- Default background is transparent.
+		inactive_color = "#303030",
+		-- inactive_color = "#282828",
 		inactive_bgcolor = "none",
 		true_colors = true, -- true lsp colors.
 		font_active = "none", -- "bold", "italic", "bold,italic", etc
@@ -68,4 +68,10 @@ require("staline").setup({
 		Warn = " ",
 		Hint = "",
 	},
+})
+require("stabline").setup({
+	style = "arrow", -- bar, arrow, bubble, slant
+	bg = "#986fec",
+	fg = "black",
+	-- stab_right = "",
 })

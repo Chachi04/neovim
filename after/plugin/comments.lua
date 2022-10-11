@@ -8,13 +8,8 @@ require("nvim_comment").setup({
 })
 
 local opts = { noremap = true, silent = true }
-local keymaps = {
-	{ "n", "<leader>c", "<cmd>CommentToggle<CR>" },
-	{ "n", "<C-/>", "<cmd>CommentToggle<CR>" },
-	{ "v", "<leader>c", ":CommentToggle<CR>" },
-	{ "v", "<C-/>", ":CommentToggle<CR>" },
-	{ "i", "<C-/>", "<cmd>CommentToggle<CR>" },
-}
-for _, args in pairs(keymaps) do
-	vim.keymap.set(args[1], args[2], args[3], opts)
-end
+vim.keymap.set("n", "<leader>c", "<cmd>CommentToggle<CR>", opts)
+vim.keymap.set("n", "<C-/>", "<cmd>CommentToggle<CR>", opts)
+vim.keymap.set("v", "<leader>c", ":CommentToggle<CR>", opts)
+vim.keymap.set("v", "<C-/>", ":CommentToggle<CR>", opts)
+vim.keymap.set("i", "<C-/>", "<cmd>CommentToggle<CR>", opts)
