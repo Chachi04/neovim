@@ -3,7 +3,7 @@ local indent = 4
 local undodir = "/home/chachi/.local/share/nvim/undo"
 
 -- cmd("syntax enable")
-cmd("filetype plugin indent on")
+cmd("filetype plugin on")
 
 vim.opt.exrc = true
 vim.opt.secure = true
@@ -99,4 +99,4 @@ vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.g.python3_host_prog = "/usr/bin/python"
 
 -- ¯\_(ツ)_/¯
-vim.g.t_8f = "<Esc>[38;2;%lu;%lu;%lum]"
+-- vim.g.t_8f = "<Esc>[38;2;%lu;%lu;%lum]"

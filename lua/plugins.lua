@@ -68,7 +68,7 @@ require("packer").startup(function(use)
 	-- use({ "glepnir/prodoc.nvim" })
 
 	--  Utils - surround, vim-closetag, tagalong, pears, nvim-ts-autotag, formatting, smooth scrolling
-	-- use("lewis6991/impatient.nvim")
+	use("lewis6991/impatient.nvim")
 	use("kylechui/nvim-surround")
 	use("windwp/nvim-autopairs") -- autoclose brackets
 	use("windwp/nvim-ts-autotag") -- autocomlete html tags
@@ -78,4 +78,7 @@ require("packer").startup(function(use)
 	-- use({ "jose-elias-alvarez/null-ls.nvim", disable = true })
 	-- use({ "iamcco/markdown-preview.nvim", ft = "markdown", disable = true })
 	-- use({ "lepture/vim-jinja", disable = true })
+
+	-- Markdown, Latex
+	use("frabjous/knap")
 end)

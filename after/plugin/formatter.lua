@@ -20,6 +20,7 @@ require("formatter").setup({
 		markdown = require("formatter.filetypes.markdown").prettier,
 		cpp = require("formatter.filetypes.cpp").clangformat,
 		cs = require("formatter.filetypes.cs").dotnetformat,
+		latex = require("formatter.filetypes.latex").latexindent,
 		-- php = { exe = "" },
 		["*"] = require("formatter.filetypes.any").remove_trailing_whitespace,
 	},

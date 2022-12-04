@@ -87,6 +87,11 @@ cmp.setup({
 			cmp.config.compare.order,
 		},
 	},
+	completion = {
+		-- autocomplete = false,
+		-- completeopt = "menu,menuone,noselect,preview",
+		-- keyword_length = 0,
+	},
 })
 
 require("snippy").setup({

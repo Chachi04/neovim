@@ -35,6 +35,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = nvim_tree_auto_close_group,
 })
 
+local compile_latex = vim.api.nvim_create_augroup("AutoCompileLatex", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = { "*.tex" },
+	command = "silent! lua require('knap').process_once()",
+	group = compile_latex,
+})
+
 -- local lsp_reload_group = vim.api.nvim_create_augroup("LspConfigReloadBuffer", { clear = true })
 -- vim.api.nvim_create_autocmd("VimEnter", {
 -- 	command = "e",

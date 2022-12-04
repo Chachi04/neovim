@@ -10,34 +10,11 @@ require("mason").setup({
 	},
 })
 
-require("mason-lspconfig").setup({
-	ensure_installed = {
-		"sumneko_lua",
-		"rust_analyzer",
-		"pyright",
-		"clangd",
-		"cssls",
-		"emmet_ls",
-		"eslint",
-		"html",
-		"tsserver",
-	},
-	automatic_installation = true,
-})
+require("mason-lspconfig").setup()
 
 local lspconfig = require("lspconfig")
 
-local lsp_defaults = {
-	flags = {
-		debounce_text_changes = 150,
-	},
-	capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-	on_attach = function(client, bufnr)
-		vim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
-	end,
-}
-
-lspconfig.util.default_config = vim.tbl_deep_extend("force", lspconfig.util.default_config, lsp_defaults)
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 lspconfig.sumneko_lua.setup({
 	settings = {
@@ -47,26 +24,34 @@ lspconfig.sumneko_lua.setup({
 			},
 		},
 	},
+	capabilities = capabilities,
 })
-lspconfig.pyright.setup({})
-lspconfig.clangd.setup({})
-lspconfig.cssls.setup({})
-lspconfig.emmet_ls.setup({})
-lspconfig.eslint.setup({})
-lspconfig.html.setup({})
-lspconfig.rust_analyzer.setup({})
-lspconfig.tsserver.setup({})
+lspconfig.pyright.setup({ capabilities = capabilities })
+lspconfig.clangd.setup({ capabilities = capabilities })
+lspconfig.cssls.setup({ capabilities = capabilities })
+lspconfig.emmet_ls.setup({ capabilities = capabilities })
+lspconfig.eslint.setup({ capabilities = capabilities })
+lspconfig.html.setup({ capabilities = capabilities })
+lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+lspconfig.tsserver.setup({ capabilities = capabilities })
+lspconfig.ltex.setup({ capabilities = capabilities })
+lspconfig.sqlls.setup({ capabilities = capabilities })
+lspconfig.tailwindcss.setup({ capabilities = capabilities })
+lspconfig.volar.setup({ capabilities = capabilities })
+-- lspconfig.psalm.setup({})
+lspconfig.intelephense.setup({ capabilities = capabilities })
+lspconfig.phpactor.setup({ capabilities = capabilities })
 
 local options = { noremap = true, silent = true }
 vim.keymap.set("n", "gr", vim.lsp.buf.rename, options)
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, options)
 vim.keymap.set("n", "gx", vim.lsp.buf.code_action, options)
-vim.keymap.set("x", "gx", vim.lsp.buf.range_code_action, options)
+-- vim.keymap.set("x", "gx", vim.lsp.buf.range_code_action, options)
 vim.keymap.set("n", "K", vim.lsp.buf.hover, options)
 -- vim.keymap.set("n", "go", vim.lsp.buf.show_line_diagnostics, options)
 -- vim.keymap.set("n", "gj", vim.lsp.buf., options)
 -- vim.keymap.set("n", "gk", vim.lsp.buf., options)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, options)
+-- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, options)
 
 require("copilot").setup({
 	server_opts_overrides = {
