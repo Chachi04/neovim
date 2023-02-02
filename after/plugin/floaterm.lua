@@ -1,3 +1,0 @@
--- local opts = { noremap = true, silent = true }
--- vim.keymap.set("n", "<c-`>", "<cmd>Lspsaga toggle_floaterm<CR>", opts)
--- vim.keymap.set("t", "<c-`>", "<C-\\><C-n><cmd>Lspsaga toggle_floaterm<CR>", opts)

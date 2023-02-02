@@ -3,6 +3,14 @@ local opts = { noremap = true, silent = true }
 
 vim.keymap.set("n", "<leader><CR>", "<cmd>luafile $MYVIMRC<CR><cmd>echo 'init.lua sourced successfully'<CR>")
 vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+-- {{{ netrw file explorer
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- }}}
 
 -- {{{ better undo breaks
 vim.keymap.set("i", "<space>", "<space><c-g>u")
@@ -10,6 +18,7 @@ vim.keymap.set("i", ",", ",<c-g>u")
 vim.keymap.set("i", ".", ".<c-g>u")
 vim.keymap.set("i", "!", "!<c-g>u")
 vim.keymap.set("i", "?", "?<c-g>u")
+vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
 -- }}}
 
 -- {{{ increment/decrement
@@ -96,6 +105,6 @@ vim.keymap.set("n", "я", ":echo 'You are in BG'<CR>")
 -- map("n", "<leader><CR>", '<cmd>so ~/.config/nvim/init.lua<CR><cmd>echo "Sourced config"<CR>', opts)
 -- nnoremap <silent> <leader><CR> :so ~/.config/nvim/init.vim<CR>:echo "init.vim has been sourced successfully"<CR>
 
-if vim.bo.filetype == "cpp" then
-	vim.keymap.set("n", "<F5>", "<cmd>Run<CR>", opts)
-end
+-- if vim.bo.filetype == "cpp" then
+-- 	vim.keymap.set("n", "<F5>", "<cmd>Run<CR>", opts)
+-- end

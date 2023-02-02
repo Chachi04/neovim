@@ -1,9 +1,8 @@
-local cmd = vim.cmd
 local indent = 4
 local undodir = "/home/chachi/.local/share/nvim/undo"
 
--- cmd("syntax enable")
-cmd("filetype plugin on")
+-- vim.cmd.syntax("enable")
+-- vim.cmd.filetype.plugin("off")
 
 vim.opt.exrc = true
 vim.opt.secure = true
@@ -17,6 +16,9 @@ vim.opt.modeline = false
 vim.opt.signcolumn = "yes" -- auto, no, yes, number
 vim.opt.showmode = false
 vim.opt.termguicolors = true
+vim.opt.pumblend = 0
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
 
 --  Searching
 vim.opt.hlsearch = false
@@ -27,7 +29,6 @@ vim.opt.incsearch = true
 --  Ignores
 vim.opt.wildmenu = true
 vim.opt.wildignorecase = true
-vim.opt.pumblend = 60
 vim.opt.wildignore:append({
 	"*.o",
 	"*.obj",
@@ -98,5 +99,7 @@ vim.opt.redrawtime = 500
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.g.python3_host_prog = "/usr/bin/python"
 
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+vim.opt.rtp:prepend(lazypath)
 -- ¯\_(ツ)_/¯
 -- vim.g.t_8f = "<Esc>[38;2;%lu;%lu;%lum]"

@@ -5,22 +5,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = yank_group,
 })
 
-local template_group = vim.api.nvim_create_augroup("Templates", { clear = true })
-vim.api.nvim_create_autocmd("BufNewFile", {
-	command = "silent! execute '0r ~/.config/nvim/skeletons/skeleton.'.expand('<afile>:e')",
-	group = template_group,
-})
-vim.api.nvim_create_autocmd("BufNewFile", {
-	command = "%substitute#\\[:VIM_EVAL:\\]\\(.\\{-\\}\\)\\[:END_EVAL:\\]#\\=eval(submatch(1))#ge",
-	group = template_group,
-})
+-- local template_group = vim.api.nvim_create_augroup("Templates", { clear = true })
+-- vim.api.nvim_create_autocmd("BufNewFile", {
+-- 	command = "silent! execute '0r ~/.config/nvim/skeletons/skeleton.'.expand('<afile>:e')",
+-- 	group = template_group,
+-- })
 
-local packer_plugins_group = vim.api.nvim_create_augroup("CompilePacker", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "plugins.lua",
-	command = "source <afile> | PackerCompile",
-	group = packer_plugins_group,
-})
+-- vim.api.nvim_create_autocmd("BufNewFile", {
+-- 	command = "%substitute#\\[:VIM_EVAL:\\]\\(.\\{-\\}\\)\\[:END_EVAL:\\]#\\=eval(submatch(1))#ge",
+-- 	group = template_group,
+-- })
 
 local jinja_group = vim.api.nvim_create_augroup("JinjaHTML", { clear = true })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
@@ -35,12 +29,37 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = nvim_tree_auto_close_group,
 })
 
-local compile_latex = vim.api.nvim_create_augroup("AutoCompileLatex", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = { "*.tex" },
-	command = "silent! lua require('knap').process_once()",
-	group = compile_latex,
+local php_augroup = vim.api.nvim_create_augroup("PHP", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = { "*.php" },
+	command = "set autoindent",
+	group = php_augroup,
 })
+
+local blade_augroup = vim.api.nvim_create_augroup("BladeTemplates", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*.blade.php",
+	command = "set ft=html.blade.php",
+	group = blade_augroup,
+})
+
+local toggle_autocompile_latex = function()
+	if not vim.g.autocompile_latex then
+		local compile_latex = vim.api.nvim_create_augroup("AutoCompileLatex", { clear = true })
+		vim.api.nvim_create_autocmd("BufWritePost", {
+			pattern = { "*.tex" },
+			command = "silent! lua require('knap').process_once()",
+			group = compile_latex,
+		})
+		vim.g.autocompile_latex = true
+		vim.notify("Auto compile LaTeX enabled", "info", { title = "LaTex" })
+	else
+		vim.api.nvim_del_augroup_by_name("AutoCompileLatex")
+		vim.g.autocompile_latex = false
+		vim.notify("Auto compile LaTeX disabled", "info", { title = "LaTeX" })
+	end
+end
+vim.keymap.set("n", "<f3>", toggle_autocompile_latex)
 
 -- local lsp_reload_group = vim.api.nvim_create_augroup("LspConfigReloadBuffer", { clear = true })
 -- vim.api.nvim_create_autocmd("VimEnter", {
@@ -91,3 +110,9 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 --     " parse special text in the templates after the read
 --     autocmd BufNewFile * %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
 -- augroup END
+-- local packer_plugins_group = vim.api.nvim_create_augroup("CompilePacker", { clear = true })
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+-- 	pattern = "plugins.lua",
+-- 	command = "source <afile> | PackerCompile",
+-- 	group = packer_plugins_group,
+-- })

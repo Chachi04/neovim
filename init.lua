@@ -4,4 +4,4 @@ require("mappings")
 
 require("autocmds")
 
-require("plugins")
+require("lazy").setup("plugins", { change_detection = { notify = false } })
