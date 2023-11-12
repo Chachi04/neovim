@@ -79,11 +79,14 @@ vim.opt.cindent = true
 vim.opt.smartindent = true
 vim.opt.autoindent = true
 vim.opt.indentexpr = ""
+vim.opt.breakindent = true
+vim.opt.copyindent = true
 
 -- Folds
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldenable = false
+vim.opt.foldenable = true
+vim.opt.foldlevel = 99
 
 --  Misc
 -- vim.opt.clipboard = "unnamedplus"
@@ -103,3 +106,19 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 vim.opt.rtp:prepend(lazypath)
 -- ¯\_(ツ)_/¯
 -- vim.g.t_8f = "<Esc>[38;2;%lu;%lu;%lum]"
+
+-- helper functions for lazy.nvim
+function dump(o)
+	if type(o) == "table" then
+		local s = "{ "
+		for k, v in pairs(o) do
+			if type(k) ~= "number" then
+				k = '"' .. k .. '"'
+			end
+			s = s .. "[" .. k .. "] = " .. dump(v) .. ","
+		end
+		return s .. "} "
+	else
+		return tostring(o)
+	end
+end

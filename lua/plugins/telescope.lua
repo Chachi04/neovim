@@ -98,8 +98,6 @@ return {
 			})
 		end
 
-		-- require("telescope").load_extension("fzf")
-
 		local opts = { noremap = true, silent = true }
 		vim.keymap.set("n", "<C-p>", project_files, opts)
 		vim.keymap.set("n", "<leader><leader>", project_files, opts)

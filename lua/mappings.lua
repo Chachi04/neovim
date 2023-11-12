@@ -1,6 +1,9 @@
 vim.g.mapleader = " "
 local opts = { noremap = true, silent = true }
 
+vim.keymap.set("i", "<c-c>", "<esc>")
+vim.keymap.set("n", "<c-c>", "<esc>")
+
 vim.keymap.set("n", "<leader><CR>", "<cmd>luafile $MYVIMRC<CR><cmd>echo 'init.lua sourced successfully'<CR>")
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")

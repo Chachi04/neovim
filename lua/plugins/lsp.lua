@@ -56,7 +56,7 @@ return {
 		lsp.ensure_installed({
 			"tsserver",
 			"eslint",
-			"sumneko_lua",
+			-- "sumneko_lua",
 			"rust_analyzer",
 			"clangd",
 			"cssls",
@@ -71,7 +71,7 @@ return {
 			settings = {
 				Lua = {
 					diagnostics = {
-						globals = { "vim", "on_attach" },
+						globals = { "vim" },
 					},
 				},
 			},

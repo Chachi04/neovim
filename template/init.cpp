@@ -26,6 +26,7 @@ const int N = 3e5;
 
 void solve() {
   // Write your solution here
+  {{_cursor_}}
 }
 
 int main() {

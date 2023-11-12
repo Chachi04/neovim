@@ -8,14 +8,16 @@ return {
 			group = formatGroup,
 		})
 
+		local defaults = require("formatter.defaults")
+		local util = require("formatter.util")
 		require("formatter").setup({
 			logging = true,
 			log_level = vim.log.levels.WARN,
 			filetype = {
 				lua = require("formatter.filetypes.lua").stylua,
 				python = require("formatter.filetypes.python").autopep8,
-				html = require("formatter.filetypes.html").prettier,
-				css = require("formatter.filetypes.css").prettier,
+				html = util.withl(defaults.prettier),
+				css = util.withl(defaults.prettier, "css"),
 				javascript = require("formatter.filetypes.javascript").prettier,
 				javascriptreact = require("formatter.filetypes.javascriptreact").prettier,
 				typescript = require("formatter.filetypes.typescript").prettier,

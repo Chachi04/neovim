@@ -16,18 +16,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- 	group = template_group,
 -- })
 
-local jinja_group = vim.api.nvim_create_augroup("JinjaHTML", { clear = true })
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	pattern = { "*.html", "*.htm", "*.shtml", "*stm" },
-	command = "set ft=html.jinja",
-	group = jinja_group,
-})
-
-local nvim_tree_auto_close_group = vim.api.nvim_create_augroup("AutoCloseNvimTree", { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", {
-	command = "if (winnr('$') == 1 && &filetype == 'NvimTree') | q | endif",
-	group = nvim_tree_auto_close_group,
-})
+-- local jinja_group = vim.api.nvim_create_augroup("JinjaHTML", { clear = true })
+-- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+-- 	pattern = { "*.html", "*.htm", "*.shtml", "*stm", "*.cshtml" },
+-- 	command = "set ft=html.jinja",
+-- 	group = jinja_group,
+-- })
 
 local php_augroup = vim.api.nvim_create_augroup("PHP", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
@@ -43,29 +37,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = blade_augroup,
 })
 
-local toggle_autocompile_latex = function()
-	if not vim.g.autocompile_latex then
-		local compile_latex = vim.api.nvim_create_augroup("AutoCompileLatex", { clear = true })
-		vim.api.nvim_create_autocmd("BufWritePost", {
-			pattern = { "*.tex" },
-			command = "silent! lua require('knap').process_once()",
-			group = compile_latex,
-		})
-		vim.g.autocompile_latex = true
-		vim.notify("Auto compile LaTeX enabled", "info", { title = "LaTex" })
-	else
-		vim.api.nvim_del_augroup_by_name("AutoCompileLatex")
-		vim.g.autocompile_latex = false
-		vim.notify("Auto compile LaTeX disabled", "info", { title = "LaTeX" })
-	end
-end
-vim.keymap.set("n", "<f3>", toggle_autocompile_latex)
-
--- local lsp_reload_group = vim.api.nvim_create_augroup("LspConfigReloadBuffer", { clear = true })
--- vim.api.nvim_create_autocmd("VimEnter", {
--- 	command = "e",
--- 	group = lsp_reload_group,
--- })
+local plaintex_to_tex = vim.api.nvim_create_augroup("LaTeX", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*.tex",
+	callback = function()
+		vim.bo.filetype = "tex"
+	end,
+	group = plaintex_to_tex,
+})
 
 -- function! RunPython()
 --     let file = expand("%")
@@ -99,10 +78,6 @@ vim.keymap.set("n", "<f3>", toggle_autocompile_latex)
 --     autocmd VimEnter *.cpp set shiftwidth=2
 -- augroup END
 
--- augroup Php
---     autocmd!
---     autocmd FileType php setlocal autoindent
--- augroup END
 -- augroup Templates
 --     autocmd!
 --     " read in template files

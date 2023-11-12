@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: "[:VIM_EVAL:]expand('%:t')[:END_EVAL:]"
+    name: "{{_file_name_}}"
 }
 </script>
 

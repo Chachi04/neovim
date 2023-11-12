@@ -40,7 +40,7 @@ return {
 			sections = {
 				left = { "- ", "-mode", "left_sep_double", " ", "branch" },
 				mid = { "file_name" },
-				right = { "cool_symbol", "lsp_name", " ", "lsp", "right_sep_double", "-line_column" },
+				right = { "cool_symbol", "lsp_name", "lsp", "right_sep_double", "-line_column" },
 			},
 			special_table = {
 				NvimTree = { "NvimTree", " " },

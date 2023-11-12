@@ -53,5 +53,17 @@ return {
 				require_confirm = true,
 			},
 		})
+
+		-- TODO This doesn't work
+		-- local nvim_tree_auto_close_group = vim.api.nvim_create_augroup("AutoCloseNvimTree", { clear = true })
+		-- vim.api.nvim_create_autocmd("BufEnter", {
+		-- 	group = nvim_tree_auto_close_group,
+		-- 	nested = true,
+		-- 	callback = function()
+		-- 		if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
+		-- 			vim.cmd("quit")
+		-- 		end
+		-- 	end,
+		-- })
 	end,
 }
