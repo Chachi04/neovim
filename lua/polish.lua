@@ -4,14 +4,13 @@
 
 -- Set up custom filetypes
 vim.filetype.add {
-  extension = {
-    -- foo = "fooscript",
-    tex = "tex",
-  },
-  -- filename = {
-  --   ["Foofile"] = "fooscript",
-  -- },
-  -- pattern = {
-  --   ["~/%.config/foo/.*"] = "fooscript",
-  -- },
+    extension = {
+        tex = "tex",
+    },
+    -- filename = {
+    --   ["Foofile"] = "fooscript",
+    -- },
+    pattern = {
+        [".*%.blade%.php"] = "blade",
+    },
 }
