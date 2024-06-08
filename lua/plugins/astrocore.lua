@@ -92,10 +92,10 @@ return {
                     function() require("telescope.builtin").git_files() end,
                     desc = "Telescope git_files",
                 },
-                ["<Leader>/"] = {
-                    function() require("telescope.builtin").live_grep() end,
-                    desc = "Telescope live_grep",
-                },
+                -- ["<Leader>/"] = {
+                --     function() require("telescope.builtin").live_grep() end,
+                --     desc = "Telescope live_grep",
+                -- },
                 ["<Leader>fd"] = {
                     function() require("telescope.builtin").lsp_definitions() end,
                     desc = "Telescope lsp_definitions",
