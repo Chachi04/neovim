@@ -121,17 +121,9 @@ return {
 
                 -- Toggle Copilot
                 ["<Leader>tc"] = function()
-                    if vim.g.copilot_enabled then
-                        vim.notify "Copilot disabled"
-                        -- require("astronvim.utils").notify("Copilot disabled", vim.log.levels.INFO, { title = "Copilot" })
-                        -- vim.cmd "Copilot disable"
-                        vim.g.copilot_enabled = false
-                    else
-                        vim.notify "Copilot enabled"
-                        -- require("astronvim.utils").notify("Copilot enabled", vim.log.levels.INFO, { title = "Copilot" })
-                        -- vim.cmd "Copilot enable"
-                        vim.g.copilot_enabled = true
-                    end
+                    vim.cmd "Copilot toggle"
+                    vim.g.copilot_enabled = not vim.g.copilot_enabled
+                    vim.notify(vim.g.copilot_enabled and "Copilot enabled" or "Copilot disabled")
                 end,
 
                 -- Zen Mode
